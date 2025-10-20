@@ -9,6 +9,8 @@
  * - 캐시 무효화 용이
  */
 
+import type { MemberListParams } from '@/types/member.types';
+
 /**
  * 대시보드 관련 Query Keys
  */
@@ -21,15 +23,17 @@ export const dashboardKeys = {
 
 /**
  * 회원 관련 Query Keys
+ * 수정: history 추가, list에 타입 지정
  */
 export const memberKeys = {
   all: ['members'] as const,
   lists: () => [...memberKeys.all, 'list'] as const,
-  list: (filters?: Record<string, any>) => 
+  list: (filters?: MemberListParams) => 
     [...memberKeys.lists(), filters] as const,
   details: () => [...memberKeys.all, 'detail'] as const,
-  detail: (id: string) => [...memberKeys.details(), id] as const,
+  detail: (id: string | number) => [...memberKeys.details(), id] as const,
   search: (query: string) => [...memberKeys.all, 'search', query] as const,
+  history: (id: string | number) => [...memberKeys.all, 'history', id] as const, // 추가
 } as const;
 
 /**
@@ -83,6 +87,17 @@ export const branchKeys = {
 } as const;
 
 /**
+ * 회원권 타입(Ticket) 관련 Query Keys
+ * 추가: 회원권 종류 관리
+ */
+export const ticketKeys = {
+  all: ['tickets'] as const,
+  lists: () => [...ticketKeys.all, 'list'] as const,
+  details: () => [...ticketKeys.all, 'detail'] as const,
+  detail: (ticketType: string) => [...ticketKeys.details(), ticketType] as const,
+} as const;
+
+/**
  * 전체 Query Keys Export
  */
 export const queryKeys = {
@@ -92,4 +107,5 @@ export const queryKeys = {
   attendance: attendanceKeys,
   statistics: statisticsKeys,
   branch: branchKeys,
+  ticket: ticketKeys, // 추가
 } as const;

@@ -29,14 +29,16 @@ export const STATISTICS_ENDPOINTS = {
 
 /**
  * 회원 관련 엔드포인트
+ * 수정: HISTORY 추가
  */
 export const MEMBER_ENDPOINTS = {
   LIST: '/members',
-  DETAIL: (id: string) => `/members/${id}`,
+  DETAIL: (id: string | number) => `/members/${id}`,
   CREATE: '/members',
-  UPDATE: (id: string) => `/members/${id}`,
-  DELETE: (id: string) => `/members/${id}`,
+  UPDATE: (id: string | number) => `/members/${id}`,
+  DELETE: (id: string | number) => `/members/${id}`,
   SEARCH: '/members/search',
+  HISTORY: (id: string | number) => `/members/${id}/history`, // 회원권 이력
 } as const;
 
 /**
@@ -72,6 +74,15 @@ export const BRANCH_ENDPOINTS = {
 } as const;
 
 /**
+ * 회원권 타입(Ticket) 관련 엔드포인트
+ * 추가: 회원권 종류 관리
+ */
+export const TICKET_ENDPOINTS = {
+  LIST: '/tickets',
+  DETAIL: (ticketType: string) => `/tickets/${ticketType}`,
+} as const;
+
+/**
  * 전체 엔드포인트 export
  */
 export const ENDPOINTS = {
@@ -81,4 +92,5 @@ export const ENDPOINTS = {
   MEMBERSHIP: MEMBERSHIP_ENDPOINTS,
   ATTENDANCE: ATTENDANCE_ENDPOINTS,
   BRANCH: BRANCH_ENDPOINTS,
+  TICKET: TICKET_ENDPOINTS, // 추가
 } as const;

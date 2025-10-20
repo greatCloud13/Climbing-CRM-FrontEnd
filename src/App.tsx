@@ -3,6 +3,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import Dashboard from './pages/Dashboard/Dashboard';
+import { MembersPage } from './pages/MembersPage/MembersPage'; // 경로 수정
 import './App.css';
 
 /**
@@ -25,7 +26,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Dashboard />} />
-          <Route path="members" element={<ComingSoon title="회원 관리" />} />
+          <Route path="members" element={<MembersPage />} />
           <Route path="memberships" element={<ComingSoon title="회원권 관리" />} />
           <Route path="attendance" element={<ComingSoon title="출석 체크" />} />
           <Route path="statistics" element={<ComingSoon title="통계" />} />
