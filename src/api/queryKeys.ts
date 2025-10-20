@@ -1,0 +1,95 @@
+// src/api/queryKeys.ts
+
+/**
+ * React Query 키 관리
+ * 
+ * 모든 React Query의 queryKey를 중앙에서 관리합니다.
+ * - 타입 안정성 확보
+ * - 키 충돌 방지
+ * - 캐시 무효화 용이
+ */
+
+/**
+ * 대시보드 관련 Query Keys
+ */
+export const dashboardKeys = {
+  all: ['dashboard'] as const,
+  stats: () => [...dashboardKeys.all, 'stats'] as const,
+  attendance: (date?: string) => 
+    [...dashboardKeys.all, 'attendance', date] as const,
+} as const;
+
+/**
+ * 회원 관련 Query Keys
+ */
+export const memberKeys = {
+  all: ['members'] as const,
+  lists: () => [...memberKeys.all, 'list'] as const,
+  list: (filters?: Record<string, any>) => 
+    [...memberKeys.lists(), filters] as const,
+  details: () => [...memberKeys.all, 'detail'] as const,
+  detail: (id: string) => [...memberKeys.details(), id] as const,
+  search: (query: string) => [...memberKeys.all, 'search', query] as const,
+} as const;
+
+/**
+ * 회원권 관련 Query Keys
+ */
+export const membershipKeys = {
+  all: ['memberships'] as const,
+  lists: () => [...membershipKeys.all, 'list'] as const,
+  list: (filters?: Record<string, any>) => 
+    [...membershipKeys.lists(), filters] as const,
+  details: () => [...membershipKeys.all, 'detail'] as const,
+  detail: (id: string) => [...membershipKeys.details(), id] as const,
+  expiring: (days?: number) => 
+    [...membershipKeys.all, 'expiring', days] as const,
+  templates: () => [...membershipKeys.all, 'templates'] as const,
+} as const;
+
+/**
+ * 출석 관련 Query Keys
+ */
+export const attendanceKeys = {
+  all: ['attendance'] as const,
+  lists: () => [...attendanceKeys.all, 'list'] as const,
+  list: (filters?: Record<string, any>) => 
+    [...attendanceKeys.lists(), filters] as const,
+  history: (memberId: string) => 
+    [...attendanceKeys.all, 'history', memberId] as const,
+  today: () => [...attendanceKeys.all, 'today'] as const,
+} as const;
+
+/**
+ * 통계 관련 Query Keys
+ */
+export const statisticsKeys = {
+  all: ['statistics'] as const,
+  monthly: (year: number, month: number) => 
+    [...statisticsKeys.all, 'monthly', year, month] as const,
+  revenue: (startDate: string, endDate: string) => 
+    [...statisticsKeys.all, 'revenue', startDate, endDate] as const,
+} as const;
+
+/**
+ * 지점 관련 Query Keys
+ */
+export const branchKeys = {
+  all: ['branches'] as const,
+  lists: () => [...branchKeys.all, 'list'] as const,
+  details: () => [...branchKeys.all, 'detail'] as const,
+  detail: (id: string) => [...branchKeys.details(), id] as const,
+  current: () => [...branchKeys.all, 'current'] as const,
+} as const;
+
+/**
+ * 전체 Query Keys Export
+ */
+export const queryKeys = {
+  dashboard: dashboardKeys,
+  member: memberKeys,
+  membership: membershipKeys,
+  attendance: attendanceKeys,
+  statistics: statisticsKeys,
+  branch: branchKeys,
+} as const;

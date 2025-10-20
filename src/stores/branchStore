@@ -1,0 +1,81 @@
+// src/stores/branchStore.ts
+
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+
+/**
+ * 지점 정보 인터페이스
+ */
+export interface Branch {
+  id: string;
+  name: string;
+  address?: string;
+  phone?: string;
+  isActive: boolean;
+}
+
+/**
+ * 지점 상태 인터페이스
+ */
+interface BranchState {
+  // 상태
+  currentBranch: Branch | null;
+  branches: Branch[];
+
+  // 액션
+  setCurrentBranch: (branch: Branch) => void;
+  setBranches: (branches: Branch[]) => void;
+  clearBranch: () => void;
+}
+
+/**
+ * 지점 상태 관리 Store
+ * 
+ * 현재 선택된 지점과 전체 지점 목록을 관리합니다.
+ */
+export const useBranchStore = create<BranchState>()(
+  persist(
+    (set) => ({
+      // 초기 상태
+      currentBranch: null,
+      branches: [],
+
+      // 현재 지점 설정
+      setCurrentBranch: (branch: Branch) => {
+        set({ currentBranch: branch });
+      },
+
+      // 전체 지점 목록 설정
+      setBranches: (branches: Branch[]) => {
+        set({ branches });
+      },
+
+      // 지점 정보 초기화
+      clearBranch: () => {
+        set({
+          currentBranch: null,
+          branches: [],
+        });
+      },
+    }),
+    {
+      name: 'branch-storage', // localStorage 키 이름
+    }
+  )
+);
+
+/**
+ * 편의 함수들
+ */
+
+// 현재 지점 ID 가져오기
+export const useCurrentBranchId = () => {
+  const currentBranch = useBranchStore((state) => state.currentBranch);
+  return currentBranch?.id;
+};
+
+// 현재 지점 이름 가져오기
+export const useCurrentBranchName = () => {
+  const currentBranch = useBranchStore((state) => state.currentBranch);
+  return currentBranch?.name;
+};
