@@ -29,7 +29,6 @@ export const STATISTICS_ENDPOINTS = {
 
 /**
  * 회원 관련 엔드포인트
- * 수정: HISTORY 추가
  */
 export const MEMBER_ENDPOINTS = {
   LIST: '/members',
@@ -75,11 +74,15 @@ export const BRANCH_ENDPOINTS = {
 
 /**
  * 회원권 타입(Ticket) 관련 엔드포인트
- * 추가: 회원권 종류 관리
+ * Ticket: 회원권 종류 (10회권, 30일권 등)
  */
 export const TICKET_ENDPOINTS = {
   LIST: '/tickets',
-  DETAIL: (ticketType: string) => `/tickets/${ticketType}`,
+  DETAIL: (ticketType: string) => `/tickets/${encodeURIComponent(ticketType)}`,
+  CREATE: '/tickets',
+  UPDATE: (ticketType: string) => `/tickets/${encodeURIComponent(ticketType)}`,
+  DELETE: (ticketType: string) => `/tickets/${encodeURIComponent(ticketType)}`,
+  DELETE_INFO: (ticketType: string) => `/tickets/${encodeURIComponent(ticketType)}/delete-info`, // 삭제 전 영향받는 회원 수 조회
 } as const;
 
 /**
@@ -92,5 +95,5 @@ export const ENDPOINTS = {
   MEMBERSHIP: MEMBERSHIP_ENDPOINTS,
   ATTENDANCE: ATTENDANCE_ENDPOINTS,
   BRANCH: BRANCH_ENDPOINTS,
-  TICKET: TICKET_ENDPOINTS, // 추가
+  TICKET: TICKET_ENDPOINTS,
 } as const;

@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   Users, 
-  CreditCard, 
+  Ticket, 
   CheckSquare, 
   BarChart3,
   X 
@@ -43,13 +43,11 @@ const navItems: NavItem[] = [
     title: '회원 관리',
     href: '/members',
     icon: Users,
-    badge: '준비중',
   },
   {
     title: '회원권 관리',
-    href: '/memberships',
-    icon: CreditCard,
-    badge: '준비중',
+    href: '/tickets', // 변경: /memberships -> /tickets
+    icon: Ticket, // 변경: CreditCard -> Ticket
   },
   {
     title: '출석 체크',

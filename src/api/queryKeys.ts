@@ -23,7 +23,6 @@ export const dashboardKeys = {
 
 /**
  * 회원 관련 Query Keys
- * 수정: history 추가, list에 타입 지정
  */
 export const memberKeys = {
   all: ['members'] as const,
@@ -33,7 +32,7 @@ export const memberKeys = {
   details: () => [...memberKeys.all, 'detail'] as const,
   detail: (id: string | number) => [...memberKeys.details(), id] as const,
   search: (query: string) => [...memberKeys.all, 'search', query] as const,
-  history: (id: string | number) => [...memberKeys.all, 'history', id] as const, // 추가
+  history: (id: string | number) => [...memberKeys.all, 'history', id] as const,
 } as const;
 
 /**
@@ -88,13 +87,15 @@ export const branchKeys = {
 
 /**
  * 회원권 타입(Ticket) 관련 Query Keys
- * 추가: 회원권 종류 관리
+ * Ticket: 회원권 종류 (10회권, 30일권 등)
  */
 export const ticketKeys = {
   all: ['tickets'] as const,
   lists: () => [...ticketKeys.all, 'list'] as const,
+  list: () => [...ticketKeys.lists()] as const,
   details: () => [...ticketKeys.all, 'detail'] as const,
   detail: (ticketType: string) => [...ticketKeys.details(), ticketType] as const,
+  deleteInfo: (ticketType: string) => [...ticketKeys.all, 'delete-info', ticketType] as const,
 } as const;
 
 /**
@@ -107,5 +108,5 @@ export const queryKeys = {
   attendance: attendanceKeys,
   statistics: statisticsKeys,
   branch: branchKeys,
-  ticket: ticketKeys, // 추가
+  ticket: ticketKeys,
 } as const;
