@@ -5,6 +5,7 @@ import Layout from './components/layout/Layout';
 import Dashboard from './pages/Dashboard/Dashboard';
 import { MembersPage } from './pages/MembersPage/MembersPage';
 import { TicketsPage } from './pages/TicketPage/TicketsPage'; // 추가
+import AttendancePage from '@/pages/AttendancePage/AttendancePage';
 import './App.css';
 
 /**
@@ -30,7 +31,7 @@ function App() {
           <Route path="members" element={<MembersPage />} />
           <Route path="tickets" element={<TicketsPage />} /> {/* 추가: 회원권 관리 */}
           <Route path="memberships" element={<ComingSoon title="회원권 관리" />} />
-          <Route path="attendance" element={<ComingSoon title="출석 체크" />} />
+          <Route path="attendance" element={<AttendancePage/>} />
           <Route path="statistics" element={<ComingSoon title="통계" />} />
         </Route>
       </Routes>
