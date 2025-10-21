@@ -2,7 +2,6 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { getDashboardStats } from '@/api/services/statistics.service';
-import type { DashboardStats } from '@/types/dashboard.types';
 
 /**
  * 대시보드 데이터 관리 커스텀 훅
